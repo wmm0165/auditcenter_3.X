@@ -6,7 +6,7 @@ import requests
 import json
 from config.read_config import ReadConfig
 import hashlib
-
+from common.logger import Logger
 
 class Login():
     def __init__(self):
@@ -20,7 +20,12 @@ class Login():
         params = {"name": username, "password": password}
         headers = {'Content-Type': "application/json"}
         self.session = requests.session()
-        self.session.post(url, data=json.dumps(params), headers=headers)
+        # res = self.session.post(url, data=json.dumps(params), headers=headers)
+        res = self.session.post(url, data=json.dumps(params), headers=headers)
+        print(res.json())
+        start_sf_url = self.conf.get('login', 'address') + '/auditcenter/api/v1/startAuditWork'  # 获取开始审方url
+        res2 = self.session.get(url=start_sf_url)  # 开始审方
+        print(res2.json())
 
     def get_session(self):
         return self.session
@@ -28,5 +33,5 @@ class Login():
 
 if __name__ == '__main__':
     a = Login()
-    res = a.get_session()
-    print(res)
+    # res = a.get_session()
+    # print(res)

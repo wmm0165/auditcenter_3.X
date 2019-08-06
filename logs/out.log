@@ -1,2 +1,5 @@
-2019-08-01 17:12:51,752-TestIm-DEBUG-开始执行用例TestIm...
-2019-08-01 17:12:51,808-TestIm-DEBUG-结束执行用例TestIm...
+2019-08-06 19:19:35,326-urllib3.connectionpool-DEBUG-Starting new HTTP connection (1): 10.1.1.71:9999
+2019-08-06 19:19:35,340-urllib3.connectionpool-DEBUG-http://10.1.1.71:9999 "POST /auditcenter/api/v1/auditcenter HTTP/1.1" 200 None
+2019-08-06 19:19:35,344-urllib3.connectionpool-DEBUG-Starting new HTTP connection (1): 10.1.1.71:9999
+2019-08-06 19:19:35,358-urllib3.connectionpool-DEBUG-http://10.1.1.71:9999 "POST /auditcenter/api/v1/auditcenter HTTP/1.1" 200 None
+2019-08-06 19:19:38,375-urllib3.connectionpool-DEBUG-http://10.1.1.71:9999 "POST /auditcenter/api/v1/ipt/selNotAuditIptList HTTP/1.1" 200 None

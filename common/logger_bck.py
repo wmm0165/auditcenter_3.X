@@ -38,7 +38,7 @@ class Logger:
          return self.logger
 
 if __name__ == '__main__':
-    a = Logger('wmm')
+    a = Logger("wmm")
     a.get_log().error("User %s is loging" % '测试30')
     a.get_log().error("User %s is loging" % '测试29')
 
