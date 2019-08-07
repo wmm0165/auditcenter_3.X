@@ -5,6 +5,7 @@ import datetime
 import time
 import random
 
+
 class Tool:
     @staticmethod
     def get_ymd(d, h):
@@ -33,23 +34,37 @@ class Tool:
     @staticmethod
     def get_ts(d, h):
         """
-        获取时间戳
+        获取13位时间戳
         :param d:
         :param h:
         :return:
         """
         date = ((datetime.datetime.now() + datetime.timedelta(days=d)) + datetime.timedelta(hours=h)).strftime(
             "%Y-%m-%d %H:%M:%S")
-        ts = int(time.mktime(time.strptime(date, "%Y-%m-%d %H:%M:%S")))  # 获取10位时间戳
-        # ts = int(time.mktime(time.strptime(date, "%Y-%m-%d %H:%M:%S"))) * 1000   # 获取13位时间戳
+        # ts = int(time.mktime(time.strptime(date, "%Y-%m-%d %H:%M:%S")))  # 获取10位时间戳
+        ts = int(time.mktime(time.strptime(date, "%Y-%m-%d %H:%M:%S"))) * 1000  # 获取13位时间戳
         return ts
 
     @staticmethod
-    def get_random(a,b):
+    def get_t(d, h):
+        """
+        获取10位时间戳
+        :param d:
+        :param h:
+        :return:
+        """
+        date = ((datetime.datetime.now() + datetime.timedelta(days=d)) + datetime.timedelta(hours=h)).strftime(
+            "%Y-%m-%d %H:%M:%S")
+        # ts = int(time.mktime(time.strptime(date, "%Y-%m-%d %H:%M:%S")))  # 获取10位时间戳
+        ts = int(time.mktime(time.strptime(date, "%Y-%m-%d %H:%M:%S"))) * 1000  # 获取13位时间戳
+        return ts
+
+    @staticmethod
+    def get_random(a, b):
         """
         生成一个指定范围内的整数
         :param a:
         :param b:
         :return:
         """
-        return random.randint(a,b)
+        return random.randint(a, b)

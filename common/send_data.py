@@ -27,6 +27,7 @@ class SendData:
                             "{{df4}}": str(self.tool.get_date(-1, -4)),
                             "{{tb1}}": str(self.tool.get_ts(-1, +1)),
                             "{{db1}}": str(self.tool.get_date(-1, +1)),
+                            "{{tsb1}}": str(self.tool.get_ts(+1, 0)),  # 明天时间戳
                             "{{dtb1}}": str(self.tool.get_date(+1, 0)),  # 明天时间
                             "{{gp}}": str(self.tool.get_random(1, 10000)),
                             "{{cgp}}": str(self.tool.get_random(1, 100000)),
