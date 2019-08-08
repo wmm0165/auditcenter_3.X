@@ -60,6 +60,14 @@ class Tool:
         return ts
 
     @staticmethod
+    def get_endtoday():
+        now = datetime.datetime.now()
+        zeroToday = now - datetime.timedelta(hours=now.hour, minutes=now.minute, seconds=now.second,
+                                             microseconds=now.microsecond)
+        lastToday = zeroToday + datetime.timedelta(hours=23, minutes=59, seconds=59)
+        return lastToday
+
+    @staticmethod
     def get_random(a, b):
         """
         生成一个指定范围内的整数

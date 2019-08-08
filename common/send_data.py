@@ -41,6 +41,7 @@ class SendData:
                             "{{f4}}": str(self.tool.get_date(-4, 0)),
                             "{{f3}}": str(self.tool.get_date(-3, 0)),
                             "{{f2}}": str(self.tool.get_date(-2, 0)),
+                            "{{endtoday}}":str(self.tool.get_endtoday())
                             }
     @wait
     def send(self, dir_name, xml_name, type):

@@ -58,7 +58,7 @@
         <check_nurse_id><![CDATA[01]]></check_nurse_id>
         <check_nurse_name><![CDATA[陆羽]]></check_nurse_name>
         <order_valid_time><![CDATA[{{f5}}]]></order_valid_time>
-        <order_invalid_time><![CDATA[]]></order_invalid_time>
+        <order_invalid_time><![CDATA[{{dtb1}}]]></order_invalid_time>
         <drug_return_flag><![CDATA[0]]></drug_return_flag>
         <stop_flag><![CDATA[0]]></stop_flag>
         <exe_dept_id><![CDATA[dai]]></exe_dept_id>
