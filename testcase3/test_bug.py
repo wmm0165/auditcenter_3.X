@@ -17,4 +17,5 @@ class TestBug(unittest.TestCase):
         self.ipt.send.send('ipt', 'test1', 1)
         self.ipt.send.send('ipt', 'test2', 1)
 
-
+if __name__ == '__main__':
+    unittest.main()
