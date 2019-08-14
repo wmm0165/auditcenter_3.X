@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+# @Time : 2019/8/14 10:38
+# @Author : wangmengmeng
+import pymysql
+from config.read_config import ReadConfig
+
+
+class ConnectDB:
+    def __init__(self):
+        self.conf = ReadConfig()
+        self.host = self.conf.get('mysql', 'host')
+        self.port = int(self.conf.get('mysql', 'port'))
+        self.username = self.conf.get('mysql', 'username')
+        self.password = self.conf.get('mysql', 'password')
+        self.db_sys = self.conf.get('mysql', 'db_sys')
+
+    def connect(self, dbname):
+        return pymysql.Connect(host=self.host, port=self.port, user=self.username, passwd=self.password,
+                               database=dbname, charset='utf8')
+
+    def get_cur(self, conn):
+        return conn.cursor()
+
+    def execute(self, cur, sql):
+        """
+        执行没有变量的sql
+        :param sql:
+        """
+        cur.execute(sql)
+        return cur.fetchone()  # 返回的是元组
+
+
+if __name__ == '__main__':
+    a = ConnectDB()
+    conn = a.connect(a.db_sys)
+    cur = a.get_cur(conn)
+    sql = a.conf.get('sql', 'zoneid')
+    res = a.execute(cur, sql)
+    print(res[0])

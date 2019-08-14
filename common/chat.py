@@ -3,6 +3,7 @@
 # @Author : wangmengmeng
 from config.read_config import ReadConfig
 from common.template import Template
+from common.connect_db import ConnectDB
 
 
 class Chat:
@@ -12,6 +13,12 @@ class Chat:
         self.audit_url = cf.get("auditcenter", "address")
         self.login_url = cf.get("login", "address")
         self.ts = self.tem.get_ts(0, 0) * 1000
+        self.db = ConnectDB()
+        self.conn = self.db.connect(self.db.db_sys)
+        self.cur = self.db.get_cur(self.conn)
+        sql = cf.get('sql', 'zoneid')
+        self.zoneid = (self.db.execute(self.cur, sql))[0]
+        # print(self.zoneid)
 
     def doc_ipt_send(self, engineid, gp):
         """医生端住院发消息
@@ -49,15 +56,15 @@ class Chat:
     # 医生端获取消息
     def doc_ipt_query(self, engineid, gp):
         url = (
-                          self.audit_url + "/api/v1/queryChatMessageNoLogin?hospitalCode=H0003&userId=09&source=%s&attachKey=%s&attachSecondKey=%s&t=%s") % (
-                  '%E4%BD%8F%E9%99%A2',engineid, gp, self.ts)
+                      self.audit_url + "/api/v1/queryChatMessageNoLogin?hospitalCode=H0003&userId=09&source=%s&attachKey=%s&attachSecondKey=%s&t=%s") % (
+                  '%E4%BD%8F%E9%99%A2', engineid, gp, self.ts)
         # print(url)
         return self.tem.get(url)
 
     def doc_opt_query(self, engineid):
         url = (
-                          self.audit_url + "/api/v1/queryChatMessageNoLogin?hospitalCode=H0003&userId=09&source=%s&attachKey=%s&t=%s") % (
-                  '%E9%97%A8%E8%AF%8A',engineid, self.ts)
+                      self.audit_url + "/api/v1/queryChatMessageNoLogin?hospitalCode=H0003&userId=09&source=%s&attachKey=%s&t=%s") % (
+                  '%E9%97%A8%E8%AF%8A', engineid, self.ts)
         return self.tem.get(url)
 
     # 药师端 查看未读消息列表
@@ -77,7 +84,7 @@ class Chat:
         url = self.audit_url + "/api/v1/ipt/all/mergeEngineMsgList"
         param = {
             "engineId": engineid,
-            "zoneId": 4,
+            "zoneId": self.zoneid,
             "groupNo": gp,
             "medicalIds": [medicalIds],
             "medicalHisIds": [medicalHisIds],
@@ -103,7 +110,7 @@ class Chat:
     def phar_ipt_send(self, engineid, gp):
         url = self.audit_url + "/api/v1/sendChatMessage"
         param = {
-            "zoneId": 4,
+            "zoneId": self.zoneid,
             "category": 3,
             "attachKey": engineid,
             "attachSecondKey": gp,
@@ -115,7 +122,7 @@ class Chat:
     def phar_opt_send(self, engineid):
         url = self.audit_url + "/api/v1/sendChatMessage"
         param = {
-            "zoneId": 4,
+            "zoneId": self.zoneid,
             "category": 1,
             "attachKey": engineid,
             "message": "这是药师消息",
@@ -125,14 +132,16 @@ class Chat:
 
     # 药师端 门诊查看记录列表
     def phar_query_chat(self, engineid):
-        url = (self.audit_url + "/api/v1/queryChatMessage?category=1&zoneId=4&attachKey=%s") % (engineid)
+        url = (self.audit_url + "/api/v1/queryChatMessage?category=1&zoneId=%s&attachKey=%s") % (self.zoneid, engineid)
         return self.tem.get(url)
 
     # 药师端 住院查看记录列表
     def phar_ipt_query_chat(self, engineid, gp):
-        url = (self.audit_url + "/api/v1/queryChatMessage?category=3&zoneId=4&attachKey=%s&attachSecondKey=%s") % (
-            engineid, gp)
+        url = (self.audit_url + "/api/v1/queryChatMessage?category=3&zoneId=%s&attachKey=%s&attachSecondKey=%s") % (
+        self.zoneid,
+        engineid, gp)
         return self.tem.get(url)
+
+
 if __name__ == '__main__':
     ca = Chat()
-    ca.doc_ipt_query(1,1)
