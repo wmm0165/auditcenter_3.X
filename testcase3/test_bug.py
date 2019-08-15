@@ -17,5 +17,17 @@ class TestBug(unittest.TestCase):
         self.ipt.send.send('ipt', 'test1', 1)
         self.ipt.send.send('ipt', 'test2', 1)
 
+    def test_02(self):
+        """AUDIT-609"""
+        self.ipt.send.send('bug', 'audit609_1', 1)
+        self.assertIsNotNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
+        engineid = self.ipt.get_engineid(1)
+        self.ipt.ipt_audit(self.ipt.send.change_data['{{gp}}'], engineid, 0)
+        self.ipt.send.send('bug', 'audit609_2', 1)
+        self.assertIsNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
