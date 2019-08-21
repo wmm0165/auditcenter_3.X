@@ -33,7 +33,7 @@ class TestIm(unittest.TestCase):
         self.assertEqual(len(res['data']), 2)
 
     def test_opt_01(self):
-        # 同患者产生两个任务
+        """同患者产生两个任务"""
         engineid1 = self.tem.get_opt_engineid("opt", "处方一", 1)
         engineid2 = self.tem.get_opt_engineid("opt", "处方二", 2)
         print(engineid1, engineid2)
