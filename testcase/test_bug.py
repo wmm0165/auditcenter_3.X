@@ -24,7 +24,7 @@ class TestBug(unittest.TestCase):
         engineid = self.ipt.get_engineid(1)
         self.ipt.ipt_audit(self.ipt.send.change_data['{{gp}}'], engineid, 0)
         self.ipt.send.send('bug', 'audit609_2', 1)
-        self.assertIsNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
+
 
 
 

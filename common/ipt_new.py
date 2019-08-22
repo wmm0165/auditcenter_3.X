@@ -16,23 +16,22 @@ def wait(func):
     return wrapper
 
 
-class Opt:
+class Ipt:
     def __init__(self):
         self.conf = ReadConfig()
         self.request = HttpRequest()
 
     @wait
-    def selNotAuditOptList(self,nu):
+    def selNotAuditIptList(self):
         """
-        待审门诊列表根据患者号查询
+        待审住院列表根据患者号查询
         :return:   通过return结果可以获得以下数据：engineid res['data']['engineInfos'][0]['id']
         """
         # self.send.send('ipt', '医嘱一', 1)
         # time.sleep(3)
-        url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/selNotAuditOptList'
-        recipeno = 'r' + ''.join(str(num)) + '_' + self.change_data['{{ts}}']
+        url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/selNotAuditIptList'
         param = {
-            "recipeNo": send.change_data['{{ts}}']
+            "patientId": send.change_data['{{ts}}']
         }
         res = self.request.post_json(url, param)
         return res
@@ -43,7 +42,7 @@ class Opt:
         :param n: 如果某患者有多条待审任务则会有多个引擎id，n代表取第几个引擎id
         :return:
         """
-        res = self.selNotAuditOptList()
+        res = self.selNotAuditIptList()
         return res['data']['engineInfos'][n - 1]['id']
 
     def audit_multi(self, *ids):
@@ -130,3 +129,13 @@ class Opt:
         else:
             url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/all/iptPatient' + '?id=' + str(engineid)
         return self.request.get(url)
+
+
+if __name__ == '__main__':
+    ipt = Ipt()
+    ipt.send.send('ipt', '医嘱一', 1)
+    ipt.send.send('ipt', '医嘱二', 1)
+    res = ipt.get_engineid(1)
+    print(res)
+    res =ipt.get_engineid(2)
+    print(res)

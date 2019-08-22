@@ -4,15 +4,13 @@
 import requests
 import json
 from common.login import Login
-from common.logger import Logger
-
+from common.logger import log
 
 
 class HttpRequest:
     def __init__(self):
         login = Login()
         self.s = login.get_session()
-        # self.log = Logger()
 
     @staticmethod
     def post_xml(url, param):
@@ -26,16 +24,12 @@ class HttpRequest:
         res = requests.post(url, data=param.encode("utf-8"), headers=headers)
         return res
 
-    def post_json(self,url,param):
+    def post_json(self, url, param):
         data = param
         data = json.dumps(data)
         headers = {"Content-Type": "application/json"}
         res = self.s.post(url, data=data.encode("utf-8"), headers=headers).json()
-        # self.log.get_log().info("请求url:%s"%url)
         return res
 
-    def get(self,url):
+    def get(self, url):
         return self.s.get(url).json()
-
-
-

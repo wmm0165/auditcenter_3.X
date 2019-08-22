@@ -3,16 +3,22 @@
 # @Author : wangmengmeng
 import pymysql
 from config.read_config import ReadConfig
-
+from common.logger import log
 
 class ConnectDB:
     def __init__(self):
-        self.conf = ReadConfig()
-        self.host = self.conf.get('mysql', 'host')
-        self.port = int(self.conf.get('mysql', 'port'))
-        self.username = self.conf.get('mysql', 'username')
-        self.password = self.conf.get('mysql', 'password')
-        self.db_sys = self.conf.get('mysql', 'db_sys')
+        log.info('start connecting MySQL...')
+        try:
+            self.conf = ReadConfig()
+            self.host = self.conf.get('mysql', 'host')
+            self.port = int(self.conf.get('mysql', 'port'))
+            self.username = self.conf.get('mysql', 'username')
+            self.password = self.conf.get('mysql', 'password')
+            self.db_sys = self.conf.get('mysql', 'db_sys')
+        except Exception as e:
+            log.error('连接数据库失败\n错误信息如下\n'.format(e))
+        else:
+            log.info('连接数据库成功')
 
     def connect(self, dbname):
         return pymysql.Connect(host=self.host, port=self.port, user=self.username, passwd=self.password,

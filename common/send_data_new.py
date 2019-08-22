@@ -71,7 +71,9 @@ class SendData:
         print(ss)
         return HttpRequest.post_xml(url, ss)
 
-
-if __name__ == '__main__':
-    s = SendData()
-    s.send('opt', '处方a', 1)
+send = SendData()
+# send.send('opt', '处方a', 1)
+# send.send('opt', '修改处方a的处方头', 1)
+# if __name__ == '__main__':
+#     s = SendData()
+#     s.send('opt', '处方a', 1)
