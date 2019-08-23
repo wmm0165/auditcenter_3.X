@@ -74,4 +74,4 @@ class SendData:
 
 if __name__ == '__main__':
     s = SendData()
-    s.send('opt', '处方a', 1)
+    s.send('ipt_stop', '医嘱一', 1)
