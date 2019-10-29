@@ -5,7 +5,6 @@ from common.logger import log
 from common.opt import Opt
 import unittest
 import warnings
-# from common.send_data import SendData
 from common.send_data_new import send
 
 class TestOpt(unittest.TestCase):

@@ -37,10 +37,14 @@ class SendData:
                             "{{df2}}": str(self.tool.get_date(-1, -1)),
                             "{{df1}}": str(self.tool.get_date(-1, -1)),
                             "{{dt}}": str(self.tool.get_date(0, 0)),  # 今天时间
-                            "{{f5}}": str(self.tool.get_date(-5, 0)),
-                            "{{f4}}": str(self.tool.get_date(-4, 0)),
-                            "{{f3}}": str(self.tool.get_date(-3, 0)),
-                            "{{f2}}": str(self.tool.get_date(-2, 0)),
+                            "{{f5}}": str(self.tool.get_date(-5, 0)), # 5天前
+                            "{{f4}}": str(self.tool.get_date(-4, 0)), # 4天前
+                            "{{f3}}": str(self.tool.get_date(-3, 0)), # 3天前
+                            "{{f2}}": str(self.tool.get_date(-2, 0)), # 2天前
+                            "{{f1}}": str(self.tool.get_date(-1, 0)),  # 5天前
+                            "{{f6}}": str(self.tool.get_date(-6, 0)),  # 4天前
+                            "{{f7}}": str(self.tool.get_date(-7, 0)),  # 3天前
+                            "{{f8}}": str(self.tool.get_date(-8, 0)),  # 2天前
                             "{{endtoday}}":str(self.tool.get_endtoday())
                             }
     @wait
@@ -74,6 +78,6 @@ class SendData:
 send = SendData()
 # send.send('opt', '处方a', 1)
 # send.send('opt', '修改处方a的处方头', 1)
-# if __name__ == '__main__':
-#     s = SendData()
-#     s.send('opt', '处方a', 1)
+if __name__ == '__main__':
+    s = SendData()
+    s.send('ipt', '多组医嘱', 1)

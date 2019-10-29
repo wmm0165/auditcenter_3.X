@@ -22,7 +22,7 @@ class Opt:
         self.request = HttpRequest()
 
     @wait
-    def selNotAuditOptList(self,nu):
+    def selNotAuditOptList(self,num):
         """
         待审门诊列表根据患者号查询
         :return:   通过return结果可以获得以下数据：engineid res['data']['engineInfos'][0]['id']
@@ -30,9 +30,9 @@ class Opt:
         # self.send.send('ipt', '医嘱一', 1)
         # time.sleep(3)
         url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/selNotAuditOptList'
-        recipeno = 'r' + ''.join(str(num)) + '_' + self.change_data['{{ts}}']
+        recipeno = 'r' + ''.join(str(num)) + '_' + send.change_data['{{ts}}']
         param = {
-            "recipeNo": send.change_data['{{ts}}']
+            "recipeNo": recipeno
         }
         res = self.request.post_json(url, param)
         return res
@@ -44,25 +44,24 @@ class Opt:
         :return:
         """
         res = self.selNotAuditOptList()
-        return res['data']['engineInfos'][n - 1]['id']
+        return res['data']['optRecipeList'][n-1]['optRecipe']['id']
 
     def audit_multi(self, *ids):
         """
-        待审住院任务列表批量通过
+        待审门诊任务列表批量通过
         :param ids:  引擎id
         """
         url = self.conf.get('auditcenter', 'address') + '/api/v1/auditBatchAgree'
         param = {
             "ids": ids,
-            "auditType": 3,  # 3指住院
+            "auditType": 1,  # 1指门急诊
             "auditWay": 2
         }
         self.request.post_json(url, param)
 
-    def ipt_audit(self, gp, engineid, audit_type):
+    def opt_audit(self, engineid, audit_type):
         """
-        医嘱详情审核任务
-        :param gp:
+        处方详情审核任务
         :param engineid:
         :param audit_type: 0 审核打回  1 审核打回（可双签） 2 审核通过
         """
@@ -70,63 +69,37 @@ class Opt:
         param = ''
         if audit_type == 0:
             param = {
-                "groupOrderList": [{
-                    "auditBoList": [],
-                    "groupNo": gp,
-                    "auditInfo": "必须修改",
-                    "auditStatus": 0,
-                    "engineId": engineid,
-                    "orderType": 1
-                }]
+                "optRecipeId": engineid,
+                "auditResult": "打回必须修改",
+                "operationRecordList": [],
+                "messageStatus": 0
             }
         elif audit_type == 1:
             param = {
-                "groupOrderList": [{
-                    "auditBoList": [],
-                    "groupNo": gp,
-                    "auditInfo": "打回可双签",
-                    "auditStatus": 0,
-                    "engineId": engineid,
-                    "orderType": 1,
-                    "messageStatus": 1
-                }]
+                "optRecipeId": engineid,
+                "auditResult": "打回可双签",
+                "operationRecordList": [],
+                "messageStatus": 1
             }
         elif audit_type == 2:
             param = {
-                "groupOrderList": [{
-                    "auditBoList": [],
-                    "groupNo": gp,
-                    "auditInfo": "审核通过",
-                    "auditStatus": 1,
-                    "engineId": engineid,
-                    "orderType": 1
-                }]
+                "optRecipeId": engineid,
+                "auditResult": "审核通过"
             }
         self.request.post_json(url, param)
 
     def orderList(self, engineid, type):
         """
-        获取药嘱信息
+        获取处方(包括处方头与处方明细)信息与患者信息
         :param engineid:
         :param type: 0 待审页面 1 已审页面
         :return:
         """
         if type == 0:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/orderList' + '?id=' + str(engineid)
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/recipeInfo/' + str(engineid)
         else:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/all/orderList' + '?id=' + str(engineid)
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/all/recipeInfo/' + str(engineid)
         return self.request.get(url)
 
-    def herbOrderList(self, engineid, type):
-        if type == 0:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/herbOrderList' + '?id=' + str(engineid)
-        else:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/all/herbOrderList' + '?id=' + str(engineid)
-        return self.request.get(url)
 
-    def get_patient(self, engineid, type):
-        if type == 0:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/iptPatient' + '?id=' + str(engineid)
-        else:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/all/iptPatient' + '?id=' + str(engineid)
-        return self.request.get(url)
+
