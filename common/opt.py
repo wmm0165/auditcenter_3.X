@@ -3,7 +3,7 @@
 # @Author : wangmengmeng
 from common.request import HttpRequest
 from config.read_config import ReadConfig
-from common.send_data_new import send
+from common.send_data import SendData
 import time
 
 
@@ -18,19 +18,20 @@ def wait(func):
 
 class Opt:
     def __init__(self):
+        self.send = SendData()
         self.conf = ReadConfig()
         self.request = HttpRequest()
 
     @wait
     def selNotAuditOptList(self,num):
         """
-        待审门诊列表根据患者号查询
+        待审门诊列表根据处方号查询
         :return:   通过return结果可以获得以下数据：engineid res['data']['engineInfos'][0]['id']
         """
         # self.send.send('ipt', '医嘱一', 1)
         # time.sleep(3)
         url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/selNotAuditOptList'
-        recipeno = 'r' + ''.join(str(num)) + '_' + send.change_data['{{ts}}']
+        recipeno = 'r' + ''.join(str(num)) + '_' + self.send.change_data['{{ts}}']
         param = {
             "recipeNo": recipeno
         }

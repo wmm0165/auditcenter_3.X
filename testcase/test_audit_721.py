@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 # @Time : 2019/10/29 14:38
 # @Author : wangmengmeng
-from common.send_data_new import send
+import pytest
+from common.send_data import SendData
 
+
+@pytest.fixture()
+def audit721_opt():
+    pass
 class Audit721:
     """AUDIT-721 门诊处方开具时间小于处方明细的开始时间导致系统异常"""
+
     def test_recipe_small(self):
         """recipe_time<start_time"""
-        send.send('opt,','audit721_1',1)
+        send.send('opt,', 'audit721_1', 1)
 
     def test_recipe_large(self):
         """recipe_time>start_time"""
@@ -20,7 +26,3 @@ class Audit721:
 
 if __name__ == '__main__':
     pass
-
-
-
-
