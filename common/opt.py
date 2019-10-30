@@ -38,14 +38,14 @@ class Opt:
         res = self.request.post_json(url, param)
         return res
 
-    def get_engineid(self, n):
+    def get_engineid(self,num):
         """
         待审列表获取引擎id
         :param n: 如果某患者有多条待审任务则会有多个引擎id，n代表取第几个引擎id
         :return:
         """
-        res = self.selNotAuditOptList()
-        return res['data']['optRecipeList'][n-1]['optRecipe']['id']
+        res = self.selNotAuditOptList(num)
+        return res['data']['optRecipeList'][0]['optRecipe']['id']
 
     def audit_multi(self, *ids):
         """
