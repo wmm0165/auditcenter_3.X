@@ -5,6 +5,7 @@ import pymysql
 from config.read_config import ReadConfig
 from common.logger import log
 
+
 class ConnectDB:
     def __init__(self):
         log.info('start connecting MySQL...')
@@ -34,6 +35,11 @@ class ConnectDB:
         """
         cur.execute(sql)
         return cur.fetchone()  # 返回的是元组
+
+    def execute_pid(self, cur, sql, pid):
+        """执行需要传入患者号patient_id的sql"""
+        cur.execute(sql, (pid,))
+        return cur.fetchone()[0]
 
 
 if __name__ == '__main__':

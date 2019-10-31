@@ -33,3 +33,9 @@ class HttpRequest:
 
     def get(self, url):
         return self.s.get(url).json()
+
+    def put(self, url, param):
+        data = param
+        data = json.dumps(data)
+        headers = {"Content-Type": "application/json"}
+        return self.s.put(url, data, headers=headers)

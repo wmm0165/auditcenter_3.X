@@ -8,14 +8,14 @@ from common.ipt import Ipt
 
 
 @pytest.fixture(scope='function')
-def audit721_opt():
+def mz():
     opt = Opt()
     yield opt
     print("门诊用例执行结束...")
 
 
 @pytest.fixture(scope='function')
-def audit721_ipt():
+def zy():
     ipt = Ipt()
     yield ipt
     print("住院用例执行结束...")
