@@ -16,6 +16,7 @@ class ConnectDB:
             self.username = self.conf.get('mysql', 'username')
             self.password = self.conf.get('mysql', 'password')
             self.db_sys = self.conf.get('mysql', 'db_sys')
+            self.db_sf_full = self.conf.get('mysql', 'db_sf_full')
         except Exception as e:
             log.error('连接数据库失败\n错误信息如下\n'.format(e))
         else:

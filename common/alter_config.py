@@ -38,3 +38,4 @@ class AlterConfig:
 if __name__ == '__main__':
     ac = AlterConfig()
     ac.alter_sys_config(40003, 1)
+    ac.alter_default_setting(88,'whether_dialysis', '是否透析',0,0)
