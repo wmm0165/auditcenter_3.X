@@ -19,7 +19,7 @@ def implant_config(is_use, value):
 def implant_database(pid):
     conn = db.connect(db.db_sys)
     cur = db.get_cur(conn)
-    sql = conf.get('sql', 'dialysis')
+    sql = conf.get('sql', 'is_implant_ipt')
     implant = db.execute_pid(cur, sql, pid)
     yield implant
 
