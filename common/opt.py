@@ -23,7 +23,7 @@ class Opt:
         self.request = HttpRequest()
 
     @wait
-    def selNotAuditOptList(self,num):
+    def selNotAuditOptList(self, num):
         """
         待审门诊列表根据处方号查询
         :return:   通过return结果可以获得以下数据：engineid res['data']['engineInfos'][0]['id']
@@ -38,7 +38,7 @@ class Opt:
         res = self.request.post_json(url, param)
         return res
 
-    def get_engineid(self,num):
+    def get_engineid(self, num):
         """
         待审列表获取引擎id
         :param n: 如果某患者有多条待审任务则会有多个引擎id，n代表取第几个引擎id
@@ -89,7 +89,7 @@ class Opt:
             }
         self.request.post_json(url, param)
 
-    def orderList(self, engineid, type):
+    def get_recipeInfo(self, engineid, type):
         """
         获取处方(包括处方头与处方明细)信息与患者信息
         :param engineid:
@@ -102,5 +102,10 @@ class Opt:
             url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/all/recipeInfo/' + str(engineid)
         return self.request.get(url)
 
-
-
+    def get_operation(self, engineid, type):
+        """获取门诊手术信息"""
+        if type == 0:
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/operationList' + '?id=' + str(engineid)
+        else:
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/all/operationList' + '?id=' + str(engineid)
+        return self.request.get(url)

@@ -126,6 +126,7 @@ class Ipt:
         return self.request.get(url)
 
     def get_patient(self, engineid, type):
+        """获取住院患者信息"""
         if type == 0:
             url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/iptPatient' + '?id=' + str(engineid)
         else:
@@ -133,6 +134,7 @@ class Ipt:
         return self.request.get(url)
 
     def get_operation(self, engineid, type):
+        """获取住院手术信息"""
         if type == 0:
             url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/operationList' + '?id=' + str(engineid)
         else:
