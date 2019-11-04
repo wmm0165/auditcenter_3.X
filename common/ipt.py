@@ -65,6 +65,7 @@ class Ipt:
         :param gp:
         :param engineid:
         :param audit_type: 0 审核打回  1 审核打回（可双签） 2 审核通过
+        orderType : 1：药物医嘱； 2：非药物医嘱；3：草药医嘱
         """
         url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/auditSingle'
         param = ''
@@ -130,6 +131,14 @@ class Ipt:
         else:
             url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/all/iptPatient' + '?id=' + str(engineid)
         return self.request.get(url)
+
+    def get_operation(self, engineid, type):
+        if type == 0:
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/operationList' + '?id=' + str(engineid)
+        else:
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/ipt/all/operationList' + '?id=' + str(engineid)
+        return self.request.get(url)
+
 
 
 if __name__ == '__main__':

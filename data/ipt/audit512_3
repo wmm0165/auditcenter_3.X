@@ -23,7 +23,7 @@
     <weight><![CDATA[60kg]]></weight>
     <address><![CDATA[杭州市西湖区西溪路525号]]></address>
     <phone_no><![CDATA[15858183745]]></phone_no>
-    <dialysis><![CDATA[0]]></dialysis>
+    <dialysis><![CDATA[1]]></dialysis>
     <marital><![CDATA[10]]></marital>
     <occupation><![CDATA[21]]></occupation>
     <in_dept_id><![CDATA[12345]]></in_dept_id>
@@ -89,5 +89,36 @@
       <medicare_type><![CDATA[1]]></medicare_type>
     </medical_order_item>
 </orders>
-
+  <ipt_operations>
+    <ipt_operation>
+      <operation_id><![CDATA[oid_{{gp}}]]></operation_id>
+      <operation_code><![CDATA[手术编码]]></operation_code>
+      <operation_name><![CDATA[手术1]]></operation_name>
+      <dept_id><![CDATA[011]]></dept_id>
+      <dept_name><![CDATA[中心ICU]]></dept_name>
+      <operation_start_time><![CDATA[{{dt}}]]></operation_start_time>
+      <operation_end_time><![CDATA[{{dt}}]]></operation_end_time>
+      <operation_incision_type><![CDATA[0]]></operation_incision_type>
+      <anesthesia_code><![CDATA[35]]></anesthesia_code>
+      <asa><![CDATA[Ⅰ]]></asa>
+      <anesthesia_end_time><![CDATA[{{dt}}]]></anesthesia_end_time>
+      <anesthesia_start_time><![CDATA[{{dt}}]]></anesthesia_start_time>
+      <is_implant><![CDATA[1]]></is_implant>
+      <implant_no><![CDATA[1]]></implant_no>
+      <implant_name><![CDATA[钢板]]></implant_name>
+      <is_reoperation><![CDATA[0]]></is_reoperation>
+      <operation_doc_id><![CDATA[02]]></operation_doc_id>
+      <operation_doc_name><![CDATA[刘烨]]></operation_doc_name>
+      <operation_level><![CDATA[1]]></operation_level>
+      <operation_site_code><![CDATA[0011]]></operation_site_code>
+      <hemorrhage_volume><![CDATA[100ml]]></hemorrhage_volume>
+      <operation_source><![CDATA[住院]]></operation_source>
+      <pre_op_diag_code><![CDATA[D17.900]]></pre_op_diag_code>
+      <pre_op_diag_name><![CDATA[脂肪瘤]]></pre_op_diag_name>
+      <post_op_diag_code><![CDATA[D17.900]]></post_op_diag_code>
+      <post_op_diag_name><![CDATA[脂肪瘤]]></post_op_diag_name>
+      <nnis><![CDATA[0级]]></nnis>
+      <is_selective_operation><![CDATA[0]]></is_selective_operation>
+    </ipt_operation>
+  </ipt_operations>
 </root>
