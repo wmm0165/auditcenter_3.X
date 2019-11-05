@@ -11,9 +11,9 @@ class TestOpt:
 
     @pytest.mark.parametrize('xml_name', ['audit721_1', 'audit721_2', 'audit721_3'])
     def test_recipe_small(self, mz, xml_name):
-        """recipe_time<start_time,产生待审任务"""
-        mz.send.send('opt', 'audit721_1', 1)
-        assert not (mz.selNotAuditOptList(1))['data']['optRecipeList']
+        """recipe_time<start_time,recipe_time>start_time,recipe_time=start_time均产生待审任务"""
+        mz.send.send('opt', xml_name, 1)
+        assert (mz.selNotAuditOptList(1))['data']['optRecipeList']
 
 
 class TestIpt:
@@ -21,9 +21,9 @@ class TestIpt:
 
     @pytest.mark.parametrize('xml_name', ['audit721_4', 'audit721_5', 'audit721_6'])
     def test_order_small(self, zy, xml_name):
-        """order_time<order_valid_time,产生待审任务"""
-        zy.ipt.send('ipt', xml_name, 1)
-        assert not (zy.selNotAuditIptList())['data']['engineInfos']
+        """order_time<order_valid_time,order_time>order_valid_time,order_time=order_valid_time均产生待审任务"""
+        zy.send.send('ipt', xml_name, 1)
+        assert (zy.selNotAuditIptList())['data']['engineInfos']
 
 
 if __name__ == '__main__':

@@ -83,7 +83,7 @@
         <despensing_num><![CDATA[3]]></despensing_num>
         <fee_total><![CDATA[6.30]]></fee_total>
         <start_time><![CDATA[{{dt}}]]></start_time>
-        <end_time><![CDATA[{{d}}]]></end_time>
+        <end_time><![CDATA[{{dt}}]]></end_time>
         <special_prompt><![CDATA[忌辛辣]]></special_prompt>
         <skin_test_flag><![CDATA[0]]></skin_test_flag>
         <skin_test_result><![CDATA[皮试结果]]></skin_test_result>
