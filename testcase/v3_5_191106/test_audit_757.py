@@ -66,7 +66,7 @@ class TestIptTouXi:
 class TestOptTouXi:
     """AUDIT-757 是否透析"""
 
-    @pytest.mark.parametrize("is_use,value,expected", [(0, 0, None), (0, 1, None), (1, 0, None), (1, 1, None)])
+    @pytest.mark.parametrize("is_use,value,expected", [(0, 0, ''), (0, 1, ''), (1, 0, ''), (1, 1, '')])
     def test_touxi_null(self, mz, touxi_config, is_use, value, expected):
         """审方透析值传空"""
         touxi_config.alter_default_setting(87, 'whether_dialysis', '是否透析', is_use, value)
@@ -87,7 +87,7 @@ class TestOptTouXi:
         time.sleep(1)
         engineid = mz.get_engineid(1)
         actual = (mz.get_recipeInfo(engineid, 0))['data']['outpatient']['dialysis']
-        assert actual == expected
+        assert actual == str(expected)
 
     @pytest.mark.parametrize("is_use,value,expected", [(0, 0, 1), (0, 1, 1), (1, 0, 1), (1, 1, 1)])
     def test_touxi_one(self, mz, touxi_config, is_use, value, expected):
@@ -97,4 +97,4 @@ class TestOptTouXi:
         time.sleep(1)
         engineid = mz.get_engineid(1)
         actual = (mz.get_recipeInfo(engineid, 0))['data']['outpatient']['dialysis']
-        assert actual == expected
+        assert actual == str(expected)
