@@ -105,7 +105,7 @@ class Opt:
     def get_operation(self, engineid, type):
         """获取门诊手术信息"""
         if type == 0:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/operationList' + '?id=' + str(engineid)
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/optOperationList/' + str(engineid)
         else:
-            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/all/operationList' + '?id=' + str(engineid)
+            url = self.conf.get('auditcenter', 'address') + '/api/v1/opt/all/optOperationList/' + str(engineid)
         return self.request.get(url)
