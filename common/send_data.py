@@ -68,10 +68,10 @@ class SendData:
         ss = body
         for k in self.change_data:
             ss = ss.replace(k, self.change_data[k])
-        print(ss)
+        # print(ss)
         return HttpRequest.post_xml(url, ss)
 
 
 if __name__ == '__main__':
     s = SendData()
-    s.send('ipt_stop', '医嘱一', 1)
+    s.send('ipt', 'audit512_1', 1)

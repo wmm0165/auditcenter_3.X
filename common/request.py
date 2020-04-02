@@ -22,6 +22,7 @@ class HttpRequest:
         """
         headers = {"Content-Type": "text/plain"}
         res = requests.post(url, data=param.encode("utf-8"), headers=headers)
+        print(res.content)
         return res
 
     def post_json(self, url, param):
@@ -33,6 +34,9 @@ class HttpRequest:
 
     def get(self, url):
         return self.s.get(url).json()
+
+    def get_with_params(self, url, params):
+        return self.s.request("get", url=url, params=params)
 
     def put(self, url, param):
         data = param
