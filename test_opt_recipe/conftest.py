@@ -3,10 +3,18 @@
 # @Author : wangmengmeng
 import pytest
 from common.alter_config import AlterConfig
+from common.opt import Opt
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session",autouse=True)
 def opt_recipe():
     """修改配置项-门诊处方审查模式 为按处方"""
     ac = AlterConfig()
     ac.alter_sys_config(40041, 1)
+
+
+@pytest.fixture(scope='function')
+def mz():
+    opt = Opt()
+    yield opt
+    print("门诊用例执行结束...")

@@ -6,7 +6,7 @@ from common.alter_config import AlterConfig
 from common.ipt import Ipt
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session",autouse=True)
 def ipt_huanzhe():
     """修改配置项-住院医嘱审查模式 为按患者"""
     ac = AlterConfig()
