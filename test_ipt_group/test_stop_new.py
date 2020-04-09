@@ -9,6 +9,7 @@ from common.ipt import Ipt
 
 
 class TestStop(unittest.TestCase):
+    """该测试用两个2、4、6、8跑不通"""
     def setUp(self):
         warnings.simplefilter("ignore", ResourceWarning)
         self.ipt = Ipt()
