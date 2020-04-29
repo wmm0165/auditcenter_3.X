@@ -15,7 +15,7 @@ class TestStop(unittest.TestCase):
         self.ipt = Ipt()
 
     def test_01(self):
-        '''非新开具医嘱，stop_flag = 0,只修改失效时间且原医嘱未审核，则旧任务撤销重新产生任务--ok'''
+        '''非新开具医嘱，stop_flag = 0,只修改失效时间且原医嘱未审核，则旧任务撤销重新产生任务--nok(现状产生了新任务)'''
 
         self.ipt.send.send('ipt_stop', '医嘱一', 1)
         self.assertIsNotNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
@@ -193,6 +193,21 @@ class TestStop(unittest.TestCase):
         engineid2 = self.ipt.get_engineid(2)
         self.assertEqual(
             (self.ipt.herbOrderList(engineid, 0))['data'][0]['orderInvalidTime'],int(self.ipt.send.change_data['{{tsb1}}']))
+
+    def test_wait_med_14(self):
+        """失效时间大于当前时间"""
+        self.ipt.send.send('ipt_stop', 'new_1', 1)
+        self.assertIsNotNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
+
+    def test_wait_med_15(self):
+        """失效时间等于当前时间"""
+        self.ipt.send.send('ipt_stop', 'new_2', 1)
+        self.assertIsNotNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
+
+    def test_wait_med_16(self):
+        """失效时间小于当前时间"""
+        self.ipt.send.send('ipt_stop', 'new_3', 1)
+        self.assertIsNone((self.ipt.selNotAuditIptList())['data']['engineInfos'])
 """
     def test_14(self):
         '''非新开具草药嘱，stop_flag = 0,只修改失效时间（失效时间大于等于当前时间）且原医嘱已审核，则不产生任务--草药嘱fail，目前产生任务了'''
