@@ -46,7 +46,7 @@ robotframework-selenium2library==3.0.0
 robotframework-seleniumlibrary==3.3.1
 robotframeworklexer==1.1
 schedule==0.6.0
-Scrapy==1.6.0
+Scrapy==1.8.2
 selenium==3.141.0
 service-identity==18.1.0
 six==1.12.0
